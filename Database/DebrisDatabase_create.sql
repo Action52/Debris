@@ -1,7 +1,14 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2019-02-09 17:31:54.356
+-- Last modification date: 2019-02-27 04:03:47.127
 
 -- tables
+-- Table: Codigo
+CREATE TABLE Codigo (
+    codigo varchar(16) NOT NULL,
+    activo bool NOT NULL,
+    CONSTRAINT Codigo_pk PRIMARY KEY (codigo)
+);
+
 -- Table: Debris
 CREATE TABLE Debris (
     id int NOT NULL,
@@ -15,7 +22,7 @@ CREATE TABLE Debris (
     cant_organic int NOT NULL,
     cant_papel int NOT NULL,
     cant_vidrio int NOT NULL,
-    Usuario_id int NOT NULL,
+    Codigo_codigo varchar(16) NOT NULL,
     CONSTRAINT Debris_pk PRIMARY KEY (id)
 );
 
@@ -35,20 +42,10 @@ CREATE TABLE Reporte (
     CONSTRAINT Reporte_pk PRIMARY KEY (id)
 );
 
--- Table: Usuario
-CREATE TABLE Usuario (
-    id int NOT NULL,
-    nickname varchar(20) NOT NULL,
-    password varchar(43) NOT NULL,
-    CONSTRAINT Usuario_pk PRIMARY KEY (id)
-);
-
 -- foreign keys
--- Reference: Debris_Usuario (table: Debris)
-ALTER TABLE Debris ADD CONSTRAINT Debris_Usuario FOREIGN KEY Debris_Usuario (Usuario_id)
-    REFERENCES Usuario (id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE;
+-- Reference: Debris_Codigo (table: Debris)
+ALTER TABLE Debris ADD CONSTRAINT Debris_Codigo FOREIGN KEY Debris_Codigo (Codigo_codigo)
+    REFERENCES Codigo (codigo);
 
 -- Reference: Reporte_Debris (table: Reporte)
 ALTER TABLE Reporte ADD CONSTRAINT Reporte_Debris FOREIGN KEY Reporte_Debris (Debris_id)
